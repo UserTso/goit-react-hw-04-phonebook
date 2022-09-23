@@ -13,6 +13,8 @@ export class ContactForm extends React.Component {
 		// console.log(event.currentTarget);
 	};
 
+
+
 	handleSubmitForm = event => {
 		event.preventDefault();
 		const { name, number } = this.state;
@@ -21,10 +23,11 @@ export class ContactForm extends React.Component {
 			name: name,
 			number: number,
 		};
-        console.log(newContact);
+
+		// передача нового контакта в App
+
         this.props.submitForm(newContact);
         this.resetForm();
-        console.log(this.props);
 	};
 
 resetForm = () => {

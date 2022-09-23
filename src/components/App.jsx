@@ -1,6 +1,8 @@
 import React from 'react';
 import { ContactForm } from './ContactForm';
 import { Section } from './Section';
+import { Filter } from './Filter';
+import {ContactList} from './ContactList';
 
 export class App extends React.Component {
 	state = {
@@ -22,7 +24,6 @@ export class App extends React.Component {
 				contacts: [...contacts, value],
 			};
 		});
-    console.log(this.state);
 	};
 
 checkContacts = contact => {
@@ -31,11 +32,38 @@ checkContacts = contact => {
   )
 }
 
+onChange = (event) => {
+	    event.preventDefault();
+		// console.log(event.currentTarget)
+		const {value} = event.currentTarget;
+		// передаем значение из инпута в фильтр
+	   this.setState({filter: value});
+	    console.log(this.state.filter)
+	    }
+
+onFilterContact = () => {
+	const currentFilter = this.state.filter.toLowerCase();
+	return this.state.contacts.filter((element) => {
+return element.name.toLowerCase().includes(currentFilter)
+	})
+}
+
+onDeleteContact = (id) => {
+this.setState({contacts: this.state.contacts.filter((element) => {
+	return element.id !== id
+})})
+}
+
 	render() {
+		
 		return (
 			<>
 				<Section title="PhoneBook">
 					<ContactForm submitForm={this.getValueSubmitForm} />
+				</Section>
+				<Section title="Contacts">
+					<Filter onChange={this.onChange} />
+					<ContactList contacts={this.onFilterContact()} deleteContact={this.onDeleteContact} />
 				</Section>
 			</>
 		);
