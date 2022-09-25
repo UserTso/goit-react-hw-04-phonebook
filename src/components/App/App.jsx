@@ -1,8 +1,9 @@
 import React from 'react';
-import { ContactForm } from './ContactForm';
-import { Section } from './Section';
-import { Filter } from './Filter';
-import {ContactList} from './ContactList';
+import { ContactForm } from '../ContactForm/ContactForm';
+import { Section } from '../Section/Section';
+import { Filter } from '../Filter/Filter';
+import {ContactList} from '../ContactList/ContactList';
+import {GlobalBox} from './App.styled';
 
 export class App extends React.Component {
 	state = {
@@ -58,6 +59,7 @@ this.setState({contacts: this.state.contacts.filter((element) => {
 		
 		return (
 			<>
+			<GlobalBox>
 				<Section title="PhoneBook">
 					<ContactForm submitForm={this.getValueSubmitForm} />
 				</Section>
@@ -65,6 +67,7 @@ this.setState({contacts: this.state.contacts.filter((element) => {
 					<Filter onChange={this.onChange} />
 					<ContactList contacts={this.onFilterContact()} deleteContact={this.onDeleteContact} />
 				</Section>
+				</GlobalBox>
 			</>
 		);
 	}

@@ -1,16 +1,22 @@
-import Button from 'react-bootstrap/Button';
+import PropTypes from 'prop-types';
+import {Item, Span, Button} from './ContactItem.styled';
 
 export const ContactItem = ({id, name, number, deleteContact}) => {
     return (
-        <li>{name}:{number}
-       <Button variant="danger" type="button" onClick={() => {
+        <Item><Span>{name}:{number}</Span>
+   <Button type="button" onClick={() => {
             deleteContact(id) 
-        }}>Delete</Button>{' '}
-        </li>
+        }}>Delete</Button>
+        </Item>
     )
 }
 
 
-        // <button type="button" onClick={() => {
-        //     deleteContact(id) 
-        // }}>Delete</button>
+ContactItem.propTypes = {
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    number: PropTypes.string.isRequired,
+    deleteContact: PropTypes.func.isRequired,
+};
+
+        
