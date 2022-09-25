@@ -19,7 +19,7 @@ export const Button = styled.button`
 width: 60px;
 height: 20px;
 color: grey;
-background-color: #f4433642;
+background-color: #ffffff;
 border-radius: 4px;
 border: 1px solid transparent;
 box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 2px 1px rgba(0, 0, 0, 0.2);

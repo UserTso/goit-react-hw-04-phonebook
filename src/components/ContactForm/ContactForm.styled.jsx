@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Form, Field } from 'formik';
 
 
 
@@ -7,7 +8,7 @@ display: flex;
 justify-content: center;
 `;
 
-export const Form = styled.form`
+export const Forma = styled(Form)`
 display: flex;
 flex-direction: column;
 `;
@@ -15,17 +16,22 @@ flex-direction: column;
 export const LabelForm = styled.label`
 display: flex;
 justify-content: space-between;
+flex-direction: column;
 width: 100%;
 margin-bottom: 10px;
 
 &:last-child {margin-bottom: 0}
 `;
 
+export const ErrorText = styled.p`
+color: red;
+`;
+
 export const Span = styled.span`
 color: grey;
 `;
 
-export const InputForm = styled.input`
+export const InputForm = styled(Field)`
 border: 1px solid transparent;
 margin-left: 5px;
 `;
