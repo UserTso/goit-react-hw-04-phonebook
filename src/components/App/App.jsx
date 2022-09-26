@@ -16,6 +16,28 @@ export class App extends React.Component {
 		filter: '',
 	};
 
+	componentDidMount() {
+
+const item = localStorage.getItem('contacts');
+const parseContacts = JSON.parse(item);
+
+if(parseContacts) 
+{this.setState({contacts: parseContacts})}
+
+
+
+		console.log('parseContacts')
+	};
+
+
+	componentDidUpdate(prevProps, prevState) { 
+
+		if(this.state.contacts !== prevState.contacts) {
+			localStorage.setItem('contacts', JSON.stringify(this.state.contacts))
+		}
+	
+	}
+
 	getValueSubmitForm = value => {
     if(this.checkContacts(value.name)) {
       return alert(`${value.name} is already in contacts`)
