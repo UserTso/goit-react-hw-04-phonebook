@@ -19,4 +19,4 @@ ContactItem.propTypes = {
     deleteContact: PropTypes.func.isRequired,
 };
 
-        
+

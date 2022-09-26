@@ -1,5 +1,6 @@
 import React from 'react';
 import { nanoid } from 'nanoid';
+import PropTypes from 'prop-types';
 import {
 	Wrapper,
 	Forma,
@@ -70,3 +71,7 @@ export function ContactForm({ submitForm }) {
 	);
 }
 
+
+ContactForm.propTypes = {
+	submitForm: PropTypes.func.isRequired,
+  };
