@@ -7,12 +7,13 @@ import {GlobalBox} from './App.styled';
 
 export class App extends React.Component {
 	state = {
-		contacts: [
-			{ id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-			{ id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-			{ id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-			{ id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-		],
+		contacts: [],
+		// contacts: [
+		// 	{ id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' }, ------------------- дивитись коментар рядок 25
+		// 	{ id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+		// 	{ id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+		// 	{ id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+		// ],
 		filter: '',
 	};
 
@@ -21,12 +22,10 @@ export class App extends React.Component {
 const item = localStorage.getItem('contacts');
 const parseContacts = JSON.parse(item);
 
-if(parseContacts) 
+// if(parseContacts?.length) ----------------- така перевірка потрібна в разі якщо посаткове значення масиву contacts не пустий масив
+if(parseContacts)
 {this.setState({contacts: parseContacts})}
 
-
-
-		console.log('parseContacts')
 	};
 
 
