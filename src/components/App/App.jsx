@@ -17,22 +17,6 @@ useEffect(() => {
 	window.localStorage.setItem('contacts', JSON.stringify(contacts)
 )}, [contacts])
 
-// componentDidMount() {
-
-// const item = localStorage.getItem('contacts');
-// const parseContacts = JSON.parse(item);
-
-// if(parseContacts)
-// {this.setState({contacts: parseContacts})}
-// 	};
-
-// componentDidUpdate(prevProps, prevState) { 
-
-// 		if(this.state.contacts !== prevState.contacts) {
-// 			localStorage.setItem('contacts', JSON.stringify(this.state.contacts))
-// 		}
-// 	}
-
 		
 const getValueSubmitForm = value => {
     if(checkContacts(value.name)) {
