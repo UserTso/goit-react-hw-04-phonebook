@@ -1,95 +1,168 @@
-import React from 'react';
+import {useState, useEffect} from 'react';
 import { ContactForm } from '../ContactForm/ContactForm';
 import { Section } from '../Section/Section';
 import { Filter } from '../Filter/Filter';
 import {ContactList} from '../ContactList/ContactList';
 import {GlobalBox} from './App.styled';
 
-export class App extends React.Component {
-	state = {
-		contacts: [],
-		// contacts: [
-		// 	{ id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' }, ------------------- дивитись коментар рядок 25
-		// 	{ id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-		// 	{ id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-		// 	{ id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-		// ],
-		filter: '',
-	};
 
-	componentDidMount() {
+export function App() {
 
-const item = localStorage.getItem('contacts');
-const parseContacts = JSON.parse(item);
+	const [contacts, setContacts] = useState(() => {return (
+	JSON.parse(window.localStorage.getItem('contacts')) ?? [])
+});
+const [filter, setFilter] = useState('');
 
-// if(parseContacts?.length) ----------------- така перевірка потрібна в разі якщо посаткове значення масиву contacts не пустий масив
-if(parseContacts)
-{this.setState({contacts: parseContacts})}
+useEffect(() => {
+	window.localStorage.setItem('contacts', JSON.stringify(contacts)
+)}, [contacts])
 
-	};
+// componentDidMount() {
 
+// const item = localStorage.getItem('contacts');
+// const parseContacts = JSON.parse(item);
 
-	componentDidUpdate(prevProps, prevState) { 
+// if(parseContacts)
+// {this.setState({contacts: parseContacts})}
+// 	};
 
-		if(this.state.contacts !== prevState.contacts) {
-			localStorage.setItem('contacts', JSON.stringify(this.state.contacts))
-		}
-	
-	}
+// componentDidUpdate(prevProps, prevState) { 
 
-	getValueSubmitForm = value => {
-    if(this.checkContacts(value.name)) {
+// 		if(this.state.contacts !== prevState.contacts) {
+// 			localStorage.setItem('contacts', JSON.stringify(this.state.contacts))
+// 		}
+// 	}
+
+		
+const getValueSubmitForm = value => {
+    if(checkContacts(value.name)) {
       return alert(`${value.name} is already in contacts`)
     }
-		this.setState(({ contacts }) => {
-			return {
-				contacts: [...contacts, value],
-			};
-		});
+	setContacts(prevContacts =>  [...prevContacts, value],
+			)
 	};
 
-checkContacts = contact => {
-  return this.state.contacts.find(element => 
+const checkContacts = contact => {
+  return contacts.find(element => 
     element.name.toLowerCase() === contact.toLowerCase()
   )
 }
 
-onChange = (event) => {
-	    event.preventDefault();
+const onChange = (event) => {
 		// console.log(event.currentTarget)
 		const {value} = event.currentTarget;
 		// передаем значение из инпута в фильтр
-	   this.setState({filter: value});
-	    console.log(this.state.filter)
+		setFilter(value);
+	    console.log(setFilter)
 	    }
 
-onFilterContact = () => {
-	const currentFilter = this.state.filter.toLowerCase();
-	return this.state.contacts.filter((element) => {
+const onFilterContact = () => {
+	const currentFilter = filter.toLowerCase();
+	return contacts.filter((element) => {
 return element.name.toLowerCase().includes(currentFilter)
 	})
 }
 
-onDeleteContact = (id) => {
-this.setState({contacts: this.state.contacts.filter((element) => {
+const onDeleteContact = (id) => {
+	setContacts(contacts.filter((element) => {
 	return element.id !== id
-})})
+}))
 }
 
-	render() {
-		
 		return (
 			<>
 			<GlobalBox>
 				<Section title="PhoneBook">
-					<ContactForm submitForm={this.getValueSubmitForm} />
+					<ContactForm submitForm={getValueSubmitForm} />
 				</Section>
 				<Section title="Contacts">
-					<Filter onChange={this.onChange} />
-					<ContactList contacts={this.onFilterContact()} deleteContact={this.onDeleteContact} />
+					<Filter onChange={onChange} />
+					<ContactList contacts={onFilterContact()} deleteContact={onDeleteContact} />
 				</Section>
 				</GlobalBox>
 			</>
 		);
-	}
 }
+
+
+// export class App extends React.Component {
+// 	state = {
+// 		contacts: [],
+// 		filter: '',
+// 	};
+
+// componentDidMount() {
+
+// const item = localStorage.getItem('contacts');
+// const parseContacts = JSON.parse(item);
+
+// if(parseContacts)
+// {this.setState({contacts: parseContacts})}
+
+// 	};
+
+
+// componentDidUpdate(prevProps, prevState) { 
+
+// 		if(this.state.contacts !== prevState.contacts) {
+// 			localStorage.setItem('contacts', JSON.stringify(this.state.contacts))
+// 		}
+	
+// 	}
+
+// getValueSubmitForm = value => {
+//     if(this.checkContacts(value.name)) {
+//       return alert(`${value.name} is already in contacts`)
+//     }
+// 		this.setState(({ contacts }) => {
+// 			return {
+// 				contacts: [...contacts, value],
+// 			};
+// 		});
+// 	};
+
+// checkContacts = contact => {
+//   return this.state.contacts.find(element => 
+//     element.name.toLowerCase() === contact.toLowerCase()
+//   )
+// }
+
+// onChange = (event) => {
+// 	    event.preventDefault();
+// 		// console.log(event.currentTarget)
+// 		const {value} = event.currentTarget;
+// 		// передаем значение из инпута в фильтр
+// 	   this.setState({filter: value});
+// 	    console.log(this.state.filter)
+// 	    }
+
+// onFilterContact = () => {
+// 	const currentFilter = this.state.filter.toLowerCase();
+// 	return this.state.contacts.filter((element) => {
+// return element.name.toLowerCase().includes(currentFilter)
+// 	})
+// }
+
+// onDeleteContact = (id) => {
+// this.setState({contacts: this.state.contacts.filter((element) => {
+// 	return element.id !== id
+// })})
+// }
+
+// 	render() {
+		
+// 		return (
+// 			<>
+// 			<GlobalBox>
+// 				<Section title="PhoneBook">
+// 					<ContactForm submitForm={this.getValueSubmitForm} />
+// 				</Section>
+// 				<Section title="Contacts">
+// 					<Filter onChange={this.onChange} />
+// 					<ContactList contacts={this.onFilterContact()} deleteContact={this.onDeleteContact} />
+// 				</Section>
+// 				</GlobalBox>
+// 			</>
+// 		);
+// 	}
+// }

@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 
-
 export function Section({title, children}) { 
     
     return (
@@ -9,7 +8,6 @@ export function Section({title, children}) {
                 {title}
             </h1>
             {children}
-
         </section>
     )
 }
